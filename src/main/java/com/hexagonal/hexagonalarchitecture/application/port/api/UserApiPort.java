@@ -13,4 +13,5 @@ public interface UserApiPort {
     User saveUser(User user);
     List<User>getAllUser();
     User updateUser(User user);
+    String deleteUser(Long id);
 }
