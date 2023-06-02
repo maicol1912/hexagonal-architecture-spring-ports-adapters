@@ -1,6 +1,9 @@
 package com.hexagonal.hexagonalarchitecture.domain;
 
+import jakarta.validation.constraints.*;
 import lombok.*;
+
+import java.util.Set;
 
 //* CLASE USADA EN LA CAPA DE APPLICATION
 @Data
@@ -10,6 +13,10 @@ public class User {
     private Long id;
     private String name;
     private String lastname;
+    private String email;
+    private String username;
+    private String password;
     private Integer age;
     private String address;
+    private Set<Role>roles;
 }

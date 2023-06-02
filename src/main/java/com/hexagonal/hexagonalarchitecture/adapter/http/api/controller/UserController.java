@@ -4,6 +4,7 @@ import com.hexagonal.hexagonalarchitecture.adapter.http.api.adapter.UserAdapter;
 import com.hexagonal.hexagonalarchitecture.adapter.http.api.model.UserDTO;
 import com.hexagonal.hexagonalarchitecture.domain.User;
 import com.hexagonal.hexagonalarchitecture.infraestructure.config.MapStructClassMapper;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -33,7 +34,7 @@ public class UserController{
     }
 
     @PostMapping("/user")
-    public ResponseEntity<UserDTO>saveUser(@RequestBody UserDTO userDTO){
+    public ResponseEntity<UserDTO>saveUser(@Valid @RequestBody UserDTO userDTO){
         User user = mapper.mapperClass(userDTO,User.class);
         return ResponseEntity.ok(mapper.mapperClass(userAdapter.saveUser(user),UserDTO.class));
     }

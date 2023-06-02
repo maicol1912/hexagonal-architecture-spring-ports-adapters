@@ -1,15 +1,20 @@
 package com.hexagonal.hexagonalarchitecture.application.service;
 
+import com.hexagonal.hexagonalarchitecture.adapter.persistence.model.ERole;
+import com.hexagonal.hexagonalarchitecture.adapter.persistence.model.RoleEntity;
 import com.hexagonal.hexagonalarchitecture.adapter.persistence.model.UserEntity;
 import com.hexagonal.hexagonalarchitecture.adapter.persistence.repository.UserRepository;
+import com.hexagonal.hexagonalarchitecture.domain.Role;
 import com.hexagonal.hexagonalarchitecture.infraestructure.config.MapStructClassMapper;
 import com.hexagonal.hexagonalarchitecture.application.usecase.UserUseCasePort;
 import com.hexagonal.hexagonalarchitecture.domain.User;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -27,7 +32,13 @@ public class UserServiceImpl implements UserUseCasePort {
 
     @Override
     public User saveUser(User user) {
+        Set<Role> roles = new HashSet<>();
+        roles.add(new Role(ERole.ADMIN));
+        roles.add(new Role(ERole.EMPLOYED));
+
         UserEntity userEntity = mapper.mapperClass(user,UserEntity.class);
+        userEntity.setRoles(roles.stream().map(role -> mapper.mapperClass(role, RoleEntity.class)).collect(Collectors.toSet()));
+        System.out.println(userEntity);
         return mapper.mapperClass(userRepository.save(userEntity),User.class);
     }
 
