@@ -27,7 +27,6 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
 
     private JwtUtils jwtUtils;
-    //* ES EL METODO QUE SE EJECUTA CUANDO EL USUARIO SE INTENTA AUTHENTICAR EN NUESTRA APLICACION
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
         UserEntity userEntity = null;

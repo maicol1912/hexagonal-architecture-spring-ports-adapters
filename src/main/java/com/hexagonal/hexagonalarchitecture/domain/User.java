@@ -1,5 +1,6 @@
 package com.hexagonal.hexagonalarchitecture.domain;
 
+import com.hexagonal.hexagonalarchitecture.adapter.persistence.model.RoleEntity;
 import jakarta.validation.constraints.*;
 import lombok.*;
 
@@ -18,5 +19,5 @@ public class User {
     private String password;
     private Integer age;
     private String address;
-    private Set<Role>roles;
+    private Set<RoleEntity>roles;
 }

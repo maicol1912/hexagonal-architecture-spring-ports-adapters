@@ -5,6 +5,7 @@ import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.postgresql.util.PSQLException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.nio.file.AccessDeniedException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -50,4 +52,26 @@ public class ExceptionFilter {
 
         return new ResponseEntity(violationMessages, HttpStatus.INTERNAL_SERVER_ERROR);
     }
+
+    @ExceptionHandler(PSQLException.class)
+    public ResponseEntity<?> postgresException(PSQLException e){
+        int substring = e.getMessage().indexOf("=");
+        String message = e.getMessage().substring(substring + 1).trim();
+        String messageFiler = message.replaceAll("\\(|\\)", "");
+        return new ResponseEntity(messageFiler, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler(AccessDeniedException.class)
+    public ResponseEntity<?> accessDeniedException(AccessDeniedException e){
+        log.error(e.toString());
+        return new ResponseEntity(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<?> generalException(Exception e) {
+        log.error(e.toString());
+        return new ResponseEntity("internal server error", HttpStatus.INTERNAL_SERVER_ERROR);
+
+    }
+
+
 }
