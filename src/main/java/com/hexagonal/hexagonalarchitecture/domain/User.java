@@ -10,7 +10,7 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 public class User {
-    private Long id;
+    private Long idUser;
     private String name;
     private String lastname;
     private String email;

@@ -7,6 +7,7 @@ import com.hexagonal.hexagonalarchitecture.infraestructure.config.MapStructClass
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -34,6 +35,7 @@ public class UserController{
     }
 
     @PostMapping("/user")
+    @PreAuthorize("permitAll()")
     public ResponseEntity<UserDTO>saveUser(@Valid @RequestBody UserDTO userDTO){
         User user = mapper.mapperClass(userDTO,User.class);
         return ResponseEntity.ok(mapper.mapperClass(userAdapter.saveUser(user),UserDTO.class));

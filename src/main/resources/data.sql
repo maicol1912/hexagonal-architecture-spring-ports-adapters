@@ -1,1 +1,0 @@
---insert into roles values(1,"ADMIN"),(2,"EMPLOYED"),(3,"ADMIN")

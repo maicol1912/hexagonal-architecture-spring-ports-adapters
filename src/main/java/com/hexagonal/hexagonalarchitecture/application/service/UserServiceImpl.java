@@ -9,6 +9,7 @@ import com.hexagonal.hexagonalarchitecture.infraestructure.config.MapStructClass
 import com.hexagonal.hexagonalarchitecture.application.usecase.UserUseCasePort;
 import com.hexagonal.hexagonalarchitecture.domain.User;
 import lombok.AllArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
@@ -21,7 +22,7 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class UserServiceImpl implements UserUseCasePort {
 
-
+    private PasswordEncoder passwordEncoder;
     private UserRepository userRepository;
     private MapStructClassMapper mapper;
     @Override
@@ -38,7 +39,7 @@ public class UserServiceImpl implements UserUseCasePort {
 
         UserEntity userEntity = mapper.mapperClass(user,UserEntity.class);
         userEntity.setRoles(roles.stream().map(role -> mapper.mapperClass(role, RoleEntity.class)).collect(Collectors.toSet()));
-        System.out.println(userEntity);
+        userEntity.setPassword(passwordEncoder.encode(user.getPassword()));
         return mapper.mapperClass(userRepository.save(userEntity),User.class);
     }
 

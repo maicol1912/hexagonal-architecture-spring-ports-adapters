@@ -1,5 +1,7 @@
 package com.hexagonal.hexagonalarchitecture.adapter.http.api.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -14,7 +16,7 @@ import lombok.NoArgsConstructor;
 public class UserDTO {
 
     @Null
-    private Long id;
+    private Long idUser;
 
     @NotBlank
     @Size(min = 10,max = 40)
@@ -35,6 +37,7 @@ public class UserDTO {
 
     @NotBlank
     @Size(min = 5, max = 35)
+    @JsonIgnore
     private String password;
 
     @NotNull
@@ -45,4 +48,9 @@ public class UserDTO {
     @NotBlank
     @Size(min = 10,max = 50)
     private String address;
+
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    public String setPassword(String password) {
+        return this.password = password;
+    }
 }
