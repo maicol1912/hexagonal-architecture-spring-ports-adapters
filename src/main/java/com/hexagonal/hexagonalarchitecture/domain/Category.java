@@ -16,5 +16,4 @@ public class Category {
     private Long idCategory;
     private String nameCategory;
     private String descriptionCategory;
-    private Date creationDate;
 }

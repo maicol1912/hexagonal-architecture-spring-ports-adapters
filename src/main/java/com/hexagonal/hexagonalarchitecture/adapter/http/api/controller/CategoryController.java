@@ -38,7 +38,6 @@ public class CategoryController {
     }
 
     @PostMapping("/api/v1/category")
-    @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<CategoryDTO>saveCategory(@Valid @RequestBody CategoryDTO categoryDTO){
         System.out.println("SI ENTRE EN EL CONTROLADORRR");
         Category category = mapper.mapperClass(categoryDTO,Category.class);

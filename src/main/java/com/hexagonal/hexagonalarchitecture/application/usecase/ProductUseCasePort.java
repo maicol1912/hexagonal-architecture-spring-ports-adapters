@@ -2,6 +2,7 @@ package com.hexagonal.hexagonalarchitecture.application.usecase;
 
 import com.hexagonal.hexagonalarchitecture.domain.Product;
 import com.hexagonal.hexagonalarchitecture.infraestructure.annotation.Port;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Optional;
