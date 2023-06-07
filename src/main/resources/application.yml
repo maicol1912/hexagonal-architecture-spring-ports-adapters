@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/ecommerce_hexagonal_2
+    url: jdbc:postgresql://localhost:5432/ecommerce_hexagonal
     username: postgres
-    password: maicol123
+    password: 1234
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:

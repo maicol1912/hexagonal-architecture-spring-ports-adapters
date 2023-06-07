@@ -39,7 +39,6 @@ public class CategoryController {
 
     @PostMapping("/api/v1/category")
     public ResponseEntity<CategoryDTO>saveCategory(@Valid @RequestBody CategoryDTO categoryDTO){
-        System.out.println("SI ENTRE EN EL CONTROLADORRR");
         Category category = mapper.mapperClass(categoryDTO,Category.class);
         return ResponseEntity.ok(mapper.mapperClass(categoryAdapter.saveCategory(category),CategoryDTO.class));
     }

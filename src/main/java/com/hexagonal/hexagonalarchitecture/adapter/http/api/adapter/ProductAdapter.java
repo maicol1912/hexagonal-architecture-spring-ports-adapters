@@ -34,6 +34,7 @@ public class ProductAdapter implements ProductApiPort {
     @SneakyThrows
     public Product saveProduct(ProductDTO productDto) {
         Category category = mapper.mapperClass(categoryRepository.findById(productDto.getCategory()),Category.class);
+        System.out.println("BYTES"+productDto.getImage().getBytes());
         Product product = Product.builder().nameProduct(productDto.getNameProduct())
                 .category(category).image(compressImage(productDto.getImage().getBytes()))
                 .price(productDto.getPrice()).build();
