@@ -9,8 +9,11 @@ import com.hexagonal.hexagonalarchitecture.adapter.persistence.repository.Produc
 import com.hexagonal.hexagonalarchitecture.adapter.persistence.repository.PurchaseDetailRepository;
 import com.hexagonal.hexagonalarchitecture.adapter.persistence.repository.PurchaseRepository;
 import com.hexagonal.hexagonalarchitecture.adapter.persistence.repository.UserRepository;
+import com.hexagonal.hexagonalarchitecture.application.usecase.PurchaseUseCasePort;
 import com.hexagonal.hexagonalarchitecture.domain.Product;
+import com.hexagonal.hexagonalarchitecture.domain.Purchase;
 import jakarta.transaction.Transactional;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,21 +21,19 @@ import java.util.List;
 
 @Service
 @Transactional
-public class PurchaseService {
+@AllArgsConstructor
+public class PurchaseService implements PurchaseUseCasePort {
 
-    @Autowired
     private PurchaseRepository purchaseRepository;
-    @Autowired
     private PurchaseDetailRepository purchaseDetailRepository;
-    @Autowired
     private ProductRepository productRepository;
-    @Autowired
     private UserRepository userRepository;
-    public String createPurchase(PurchaseDTO purchaseDTO){
+    @Override
+    public String createPurchase(Purchase purchase){
         PurchaseEntity savedPurchase = new PurchaseEntity();
-        UserEntity user = userRepository.findById(purchaseDTO.getClientId()).orElseThrow(()->new RuntimeException("User not found"));
+        UserEntity user = userRepository.findById(purchase.getClientId()).orElseThrow(()->new RuntimeException("User not found"));
 
-        List<ProductEntity>products = purchaseDTO.getProductId()
+        List<ProductEntity>products = purchase.getProductId()
                 .stream().map(product -> productRepository.findById(product)
                         .orElseThrow(()-> new RuntimeException("Product Not Found"))
                 ).toList();

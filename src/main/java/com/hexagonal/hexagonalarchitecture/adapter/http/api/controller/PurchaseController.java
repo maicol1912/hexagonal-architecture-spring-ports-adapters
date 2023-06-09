@@ -1,5 +1,6 @@
 package com.hexagonal.hexagonalarchitecture.adapter.http.api.controller;
 
+import com.hexagonal.hexagonalarchitecture.adapter.http.api.adapter.PurchaseAdapter;
 import com.hexagonal.hexagonalarchitecture.adapter.http.api.model.ProductDTO;
 import com.hexagonal.hexagonalarchitecture.adapter.http.api.model.PurchaseDTO;
 import com.hexagonal.hexagonalarchitecture.application.service.PurchaseService;
@@ -20,12 +21,11 @@ import java.io.IOException;
 @AllArgsConstructor
 public class PurchaseController {
 
-    private PurchaseService purchaseService;
+    private PurchaseAdapter purchaseAdapter;
 
     @PostMapping(value="/api/v1/purchase")
     @PreAuthorize("hasAnyRole('ADMIN','EMPLOYED','USER')")
     public ResponseEntity<String> saveProduct(@Valid @RequestBody PurchaseDTO purchaseDTO){
-        System.out.println("ENTRE EN 0");
-        return ResponseEntity.ok(purchaseService.createPurchase(purchaseDTO));
+        return ResponseEntity.ok(purchaseAdapter.createPurchase(purchaseDTO));
     }
 }
