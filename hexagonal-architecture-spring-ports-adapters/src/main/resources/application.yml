@@ -1,0 +1,10 @@
+spring:
+  cloud:
+    config:
+      profile: prod
+
+  application:
+    name: ecommerce-spring
+
+server:
+  port: 8080
