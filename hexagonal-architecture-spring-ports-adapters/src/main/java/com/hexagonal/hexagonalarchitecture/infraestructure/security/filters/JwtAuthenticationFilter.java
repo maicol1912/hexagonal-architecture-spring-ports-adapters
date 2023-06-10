@@ -67,4 +67,16 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
         response.getWriter().flush();
     }
+
+    @Override
+    protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException, ServletException {
+        response.setStatus(HttpServletResponse.SC_FORBIDDEN); // Establecer el estado de respuesta como 403 Forbidden
+
+        String errorMessage = "No tienes los permisos para acceder a este lugar";
+        String jsonError = "{\"error\":\"" + errorMessage + "\"}";
+
+        response.setContentType("application/json");
+
+        response.getWriter().write(jsonError);
+    }
 }

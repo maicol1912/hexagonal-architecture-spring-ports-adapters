@@ -5,6 +5,3 @@ spring:
   #al conectarse al config server busca el archivo con este nombre del applicaion y del profile
   application:
     name: ecommerce-spring
-
-server:
-  port: 8080
