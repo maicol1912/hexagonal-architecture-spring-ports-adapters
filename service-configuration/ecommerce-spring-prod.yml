@@ -19,7 +19,7 @@ spring:
   main:
     allow-circular-references: true
 server:
-  port: 8081
+  port: 9010
 jwt:
   secret_key: 7A24432646294A404E635266556A586E3272357538782F4125442A472D4B6150
   expiration_time: 86400000A
