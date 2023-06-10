@@ -2,7 +2,7 @@ spring:
   cloud:
     config:
       profile: prod
-
+  #al conectarse al config server busca el archivo con este nombre del applicaion y del profile
   application:
     name: ecommerce-spring
 
